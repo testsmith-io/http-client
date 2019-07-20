@@ -7,7 +7,8 @@ php_7_1:
   image: registry.gitlab.com/socialconnect-php/auth:7.1
   script:
     - composer install -o
-#    - ./vendor/bin/phpunit -v --debug --no-coverage;
+    - php -S 127.0.0.1:5555 tests/mock-server.php &
+    - ./vendor/bin/phpunit -v --debug --no-coverage;
   tags:
     - docker
 
@@ -16,7 +17,8 @@ php_7_2:
   image: registry.gitlab.com/socialconnect-php/auth:7.2
   script:
     - composer install -o
-#    - ./vendor/bin/phpunit -v --debug --no-coverage;
+    - php -S 127.0.0.1:5555 tests/mock-server.php &
+    - ./vendor/bin/phpunit -v --debug --no-coverage;
   tags:
     - docker
 
@@ -25,7 +27,8 @@ php_7_3:
   image: registry.gitlab.com/socialconnect-php/auth:7.3
   script:
     - composer install -o
-#    - ./vendor/bin/phpunit -v --debug --no-coverage;
+    - php -S 127.0.0.1:5555 tests/mock-server.php &
+    - ./vendor/bin/phpunit -v --debug --no-coverage;
   tags:
     - docker
 

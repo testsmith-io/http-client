@@ -28,7 +28,14 @@
             "SocialConnect\\HttpClient\\": "src/"
         }
     },
+    "autoload-dev" : {
+        "psr-4" : {
+            "Test\\" : "tests/"
+        }
+    },
     "require-dev": {
+        "symfony/http-foundation": "^3.4",
+        "phpunit/phpunit": "^6.5",
         "phpstan/phpstan-shim": "^0.11.12"
     }
 }
