@@ -135,7 +135,8 @@ class Curl implements ClientInterface
         $response = new Response(
             curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE),
             $headersParser->getHeaders(),
-            $result
+            $result,
+            curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION)
         );
 
         curl_reset($this->curlHandler);
