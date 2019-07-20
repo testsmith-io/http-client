@@ -15,7 +15,7 @@ class HeaderValue
     protected $values = [];
 
     /**
-     * @param string $value
+     * @param string $header
      */
     public function __construct(string $header)
     {

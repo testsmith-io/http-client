@@ -49,10 +49,12 @@ class Curl implements ClientInterface
             $this->parameters = array_replace($this->parameters, $parameters);
         }
 
-        $this->curlHandler = curl_init();
-        if ($this->curlHandler === false) {
+        $curlHandlerOrFalse = curl_init();
+        if ($curlHandlerOrFalse === false) {
             throw new ClientException('Unable to init curl');
         }
+
+        $this->curlHandler = $curlHandlerOrFalse;
     }
 
     /**
@@ -191,8 +193,9 @@ class Curl implements ClientInterface
     }
 
     /**
-     * @param $option
-     * @param $value
+     * @param string $option
+     * @param mixed $value
+     * @return void
      */
     public function setOption($option, $value)
     {
