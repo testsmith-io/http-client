@@ -10,7 +10,6 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
-use SocialConnect\Common\Http\HeaderValue;
 
 class Cache implements ClientInterface
 {

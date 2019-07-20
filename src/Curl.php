@@ -13,8 +13,6 @@ use Psr\Http\Message\ResponseInterface;
 use SocialConnect\HttpClient\Exception\ClientException;
 use SocialConnect\HttpClient\Exception\NetworkException;
 use SocialConnect\HttpClient\Exception\RequestException;
-use SocialConnect\HttpClient\HeadersParser;
-use SocialConnect\HttpClient\Response;
 
 class Curl implements ClientInterface
 {
