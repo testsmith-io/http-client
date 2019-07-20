@@ -115,12 +115,16 @@ class Curl implements ClientInterface
             case CURLE_SSL_CONNECT_ERROR:
             case CURLOPT_DNS_CACHE_TIMEOUT:
             case CURLOPT_TIMEOUT:
+                curl_reset($this->curlHandler);
+
                 throw new NetworkException(
                     $request,
                     curl_error($this->curlHandler),
                     $errno
                 );
             default:
+                curl_reset($this->curlHandler);
+
                 throw new RequestException(
                     $request,
                     curl_error($this->curlHandler),
@@ -134,9 +138,6 @@ class Curl implements ClientInterface
             $result
         );
 
-        /**
-         * Reset all options of a libcurl client after request
-         */
         curl_reset($this->curlHandler);
 
         return $response;
