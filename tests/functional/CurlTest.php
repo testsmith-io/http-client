@@ -4,6 +4,7 @@ namespace Test\Functional;
 
 use SocialConnect\HttpClient\Curl;
 use SocialConnect\HttpClient\Request;
+use SocialConnect\HttpClient\StreamFactory;
 
 class CurlTest extends \PHPUnit\Framework\TestCase
 {
@@ -19,6 +20,27 @@ class CurlTest extends \PHPUnit\Framework\TestCase
 
         parent::assertEquals($result['method'], 'GET');
         parent::assertEquals($result['uri'], 'http://127.0.0.1:5555/test-get');
+    }
+
+    public function testPostMethod()
+    {
+        $streamFactory = new StreamFactory();
+
+        $request = new Request('POST', 'http://127.0.0.1:5555/test-get');
+        $request = $request->withHeader('X-MY-Header', '5');
+        $request = $request->withBody(
+            $streamFactory->createStream('payload')
+        );
+
+        $client = new Curl();
+        $response = $client->sendRequest($request);
+
+        $content = $response->getBody()->getContents();
+        $result = json_decode($content, true);
+
+        parent::assertEquals($result['method'], 'POST');
+        parent::assertEquals($result['uri'], 'http://127.0.0.1:5555/test-get');
+        parent::assertEquals($result['headers']['x-my-header'], ['5']);
     }
 
     public function testDeleteMethod()
