@@ -15,6 +15,9 @@ class CurlTest extends \PHPUnit\Framework\TestCase
             new Request('GET', 'http://127.0.0.1:5555/test-get')
         );
 
+        parent::assertSame(200, $response->getStatusCode());
+        parent::assertSame('OK', $response->getReasonPhrase());
+
         $content = $response->getBody()->getContents();
         $result = json_decode($content, true);
 

@@ -27,7 +27,7 @@ class Curl implements ClientInterface
      * @var array
      */
     protected $parameters = array(
-        CURLOPT_USERAGENT => 'SocialConnect\Auth (https://github.com/socialconnect/auth) v3',
+        CURLOPT_USERAGENT => 'SocialConnect\HttpClient (https://github.com/socialconnect/http-client) v1',
         CURLOPT_HEADER => false,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 0,
@@ -136,7 +136,9 @@ class Curl implements ClientInterface
             curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE),
             $headersParser->getHeaders(),
             $result,
-            curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION)
+            curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION),
+            // Should be empty string to auto populate reason inside Guzzle Response
+            ''
         );
 
         curl_reset($this->curlHandler);
