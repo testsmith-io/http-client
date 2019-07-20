@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67ebede9f2e426f5b809ebbd25508278",
+    "content-hash": "b54001711fcd7c889eef75b983839f3a",
     "packages": [
         {
             "name": "guzzlehttp/psr7",
@@ -265,14 +265,61 @@
             "time": "2019-03-08T08:55:37+00:00"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "phpstan/phpstan-shim",
+            "version": "0.11.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-shim.git",
+                "reference": "e839cd60446dd967f5c0f7908d3b16d14bc39796"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-shim/zipball/e839cd60446dd967f5c0f7908d3b16d14bc39796",
+                "reference": "e839cd60446dd967f5c0f7908d3b16d14bc39796",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.1"
+            },
+            "replace": {
+                "nikic/php-parser": "^4.0.2",
+                "phpstan/phpdoc-parser": "^0.3.3",
+                "phpstan/phpstan": "self.version"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.11-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan Phar distribution",
+            "time": "2019-07-08T07:29:02+00:00"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "platform-dev": []
 }
