@@ -102,44 +102,42 @@ class Curl implements ClientInterface
 
         $result = curl_exec($this->curlHandler);
 
-        $errno = curl_errno($this->curlHandler);
-        switch ($errno) {
-            case CURLE_OK:
-                break;
-            case CURLE_COULDNT_RESOLVE_PROXY:
-            case CURLE_COULDNT_RESOLVE_HOST:
-            case CURLE_COULDNT_CONNECT:
-            case CURLE_OPERATION_TIMEOUTED:
-            case CURLE_SSL_CONNECT_ERROR:
-            case CURLOPT_DNS_CACHE_TIMEOUT:
-            case CURLOPT_TIMEOUT:
-                curl_reset($this->curlHandler);
+        try {
+            $errno = curl_errno($this->curlHandler);
+            switch ($errno) {
+                case CURLE_OK:
+                    break;
+                case CURLE_COULDNT_RESOLVE_PROXY:
+                case CURLE_COULDNT_RESOLVE_HOST:
+                case CURLE_COULDNT_CONNECT:
+                case CURLE_OPERATION_TIMEOUTED:
+                case CURLE_SSL_CONNECT_ERROR:
+                case CURLOPT_DNS_CACHE_TIMEOUT:
+                case CURLOPT_TIMEOUT:
+                    throw new NetworkException(
+                        $request,
+                        curl_error($this->curlHandler),
+                        $errno
+                    );
+                default:
+                    throw new RequestException(
+                        $request,
+                        curl_error($this->curlHandler),
+                        $errno
+                    );
+            }
 
-                throw new NetworkException(
-                    $request,
-                    curl_error($this->curlHandler),
-                    $errno
-                );
-            default:
-                curl_reset($this->curlHandler);
-
-                throw new RequestException(
-                    $request,
-                    curl_error($this->curlHandler),
-                    $errno
-                );
+            $response = new Response(
+                curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE),
+                $headersParser->getHeaders(),
+                $result,
+                curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION),
+                // Should be empty string to auto populate reason inside Guzzle Response
+                ''
+            );
+        } finally {
+            curl_reset($this->curlHandler);
         }
-
-        $response = new Response(
-            curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE),
-            $headersParser->getHeaders(),
-            $result,
-            curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION),
-            // Should be empty string to auto populate reason inside Guzzle Response
-            ''
-        );
-
-        curl_reset($this->curlHandler);
 
         return $response;
     }
