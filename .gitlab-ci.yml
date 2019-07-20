@@ -1,0 +1,39 @@
+
+stages:
+  - test
+
+php_7_1:
+  stage: test
+  image: registry.gitlab.com/socialconnect-php/auth:7.1
+  script:
+    - composer install -o
+#    - ./vendor/bin/phpunit -v --debug --no-coverage;
+  tags:
+    - docker
+
+php_7_2:
+  stage: test
+  image: registry.gitlab.com/socialconnect-php/auth:7.2
+  script:
+    - composer install -o
+#    - ./vendor/bin/phpunit -v --debug --no-coverage;
+  tags:
+    - docker
+
+php_7_3:
+  stage: test
+  image: registry.gitlab.com/socialconnect-php/auth:7.3
+  script:
+    - composer install -o
+#    - ./vendor/bin/phpunit -v --debug --no-coverage;
+  tags:
+    - docker
+
+phpstan:
+  stage: test
+  image: registry.gitlab.com/socialconnect-php/auth:7.3
+  script:
+    - composer install -o
+    - ./vendor/bin/phpstan.phar analyse src/ --no-progress --level 2
+  tags:
+    - docker
