@@ -95,8 +95,6 @@ class Curl implements ClientInterface
             curl_setopt($this->curlHandler, $key, $value);
         }
 
-        $headers = [];
-
         $headersParser = new HeadersParser();
         curl_setopt($this->curlHandler, CURLOPT_HEADERFUNCTION, array($headersParser, 'parseHeaders'));
         curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, $this->toHttpHeaders($request->getHeaders()));

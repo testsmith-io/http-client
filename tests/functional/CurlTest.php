@@ -17,6 +17,7 @@ class CurlTest extends \PHPUnit\Framework\TestCase
 
         parent::assertSame(200, $response->getStatusCode());
         parent::assertSame('OK', $response->getReasonPhrase());
+        parent::assertSame($response->getHeaderLine('content-type'), 'application/json');
 
         $content = $response->getBody()->getContents();
         $result = json_decode($content, true);
@@ -38,6 +39,10 @@ class CurlTest extends \PHPUnit\Framework\TestCase
         $client = new Curl();
         $response = $client->sendRequest($request);
 
+        parent::assertSame(200, $response->getStatusCode());
+        parent::assertSame('OK', $response->getReasonPhrase());
+        parent::assertSame($response->getHeaderLine('content-type'), 'application/json');
+
         $content = $response->getBody()->getContents();
         $result = json_decode($content, true);
 
@@ -52,6 +57,10 @@ class CurlTest extends \PHPUnit\Framework\TestCase
         $response = $client->sendRequest(
             new Request('DELETE', 'http://127.0.0.1:5555/test-delete')
         );
+
+        parent::assertSame(200, $response->getStatusCode());
+        parent::assertSame('OK', $response->getReasonPhrase());
+        parent::assertSame($response->getHeaderLine('content-type'), 'application/json');
 
         $content = $response->getBody()->getContents();
         $result = json_decode($content, true);

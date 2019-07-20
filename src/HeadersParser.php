@@ -10,9 +10,9 @@ namespace SocialConnect\HttpClient;
 class HeadersParser
 {
     /**
-     * @var array
+     * @var string[][]
      */
-    protected $headers = array();
+    protected $headers = [];
 
     /**
      * @param resource $client
@@ -24,10 +24,10 @@ class HeadersParser
         $parts = explode(':', $headerLine, 2);
         if (count($parts) == 2) {
             list ($name, $value) = $parts;
-            $this->headers[trim($name)] = trim($value);
+            $this->headers[trim($name)][] = trim($value);
         }
 
-        return strlen($headerLine);
+        return mb_strlen($headerLine, '8bit');
     }
 
     /**
