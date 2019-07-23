@@ -87,7 +87,7 @@ class Curl implements ClientInterface
         curl_setopt($this->curlHandler, CURLOPT_HTTP_VERSION, $this->getProtocolVersion($request));
 
         if ($request->getBody()->getSize()) {
-            curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $request->getBody()->__toString());
+            curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, (string) $request->getBody());
         }
 
         curl_setopt_array($this->curlHandler, $this->parameters);
@@ -95,7 +95,7 @@ class Curl implements ClientInterface
         $headersParser = new HeadersParser();
         curl_setopt($this->curlHandler, CURLOPT_HEADERFUNCTION, array($headersParser, 'parseHeaders'));
         curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, self::toHttpHeaders($request->getHeaders()));
-        curl_setopt($this->curlHandler, CURLOPT_URL, $request->getUri()->__toString());
+        curl_setopt($this->curlHandler, CURLOPT_URL, (string) $request->getUri()->withFragment(''));
 
         $result = curl_exec($this->curlHandler);
 
