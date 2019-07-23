@@ -90,12 +90,7 @@ class Curl implements ClientInterface
             curl_setopt($this->curlHandler, CURLOPT_POSTFIELDS, $request->getBody()->__toString());
         }
 
-        /**
-         * Setup default parameters
-         */
-        foreach ($this->parameters as $key => $value) {
-            curl_setopt($this->curlHandler, $key, $value);
-        }
+        curl_setopt_array($this->curlHandler, $this->parameters);
 
         $headersParser = new HeadersParser();
         curl_setopt($this->curlHandler, CURLOPT_HEADERFUNCTION, array($headersParser, 'parseHeaders'));
