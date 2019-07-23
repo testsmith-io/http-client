@@ -44,7 +44,7 @@ class Curl implements ClientInterface
     public function __construct(array $parameters = null)
     {
         if (!extension_loaded('curl')) {
-            throw new ClientException('You need to install curl-ext to use SocialConnect-Http\Client\Curl.');
+            throw new ClientException('You need to install curl-ext to use SocialConnect\HttpClient\Curl.');
         }
 
         if ($parameters) {
@@ -94,7 +94,7 @@ class Curl implements ClientInterface
 
         $headersParser = new HeadersParser();
         curl_setopt($this->curlHandler, CURLOPT_HEADERFUNCTION, array($headersParser, 'parseHeaders'));
-        curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, $this->toHttpHeaders($request->getHeaders()));
+        curl_setopt($this->curlHandler, CURLOPT_HTTPHEADER, self::toHttpHeaders($request->getHeaders()));
         curl_setopt($this->curlHandler, CURLOPT_URL, $request->getUri()->__toString());
 
         $result = curl_exec($this->curlHandler);
