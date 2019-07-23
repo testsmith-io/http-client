@@ -32,7 +32,7 @@ class Curl implements ClientInterface
         CURLOPT_USERAGENT => 'SocialConnect\HttpClient (https://github.com/socialconnect/http-client) v1',
         CURLOPT_HEADER => false,
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CONNECTTIMEOUT => 0,
+        CURLOPT_CONNECTTIMEOUT_MS => 10 * 1000,
         CURLOPT_TIMEOUT_MS => 30 * 1000,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_MAXREDIRS => 2
