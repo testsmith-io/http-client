@@ -111,6 +111,7 @@ class Curl implements ClientInterface
                 case CURLE_SSL_CONNECT_ERROR:
                 case CURLOPT_DNS_CACHE_TIMEOUT:
                 case CURLOPT_TIMEOUT:
+                case CURLE_GOT_NOTHING:
                     throw new NetworkException(
                         $request,
                         curl_error($this->curlHandler),
