@@ -131,7 +131,8 @@ class Curl implements ClientInterface
                 curl_getinfo($this->curlHandler, CURLINFO_HTTP_CODE),
                 $headersParser->getHeaders(),
                 $result,
-                curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION),
+                // CURLINFO_HTTP_VERSION is supported only since 7.3
+                defined('CURLINFO_HTTP_VERSION') ? curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION) : '1.1',
                 // Should be empty string to auto populate reason inside Guzzle Response
                 ''
             );
