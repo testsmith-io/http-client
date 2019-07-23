@@ -24,6 +24,8 @@ class Curl implements ClientInterface
     protected $curlHandler;
 
     /**
+     * Curl options
+     *
      * @var array
      */
     protected $parameters = array(
@@ -31,7 +33,7 @@ class Curl implements ClientInterface
         CURLOPT_HEADER => false,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CONNECTTIMEOUT => 0,
-        CURLOPT_TIMEOUT => 30,
+        CURLOPT_TIMEOUT_MS => 30 * 1000,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_MAXREDIRS => 2
     );
@@ -207,16 +209,8 @@ class Curl implements ClientInterface
      * @param mixed $value
      * @return void
      */
-    public function setOption($option, $value)
+    public function setCurlOption($option, $value)
     {
         curl_setopt($this->curlHandler, $option, $value);
-    }
-
-    /**
-     * @return array
-     */
-    public function getParameters()
-    {
-        return $this->parameters;
     }
 }
