@@ -136,6 +136,15 @@ class Curl implements ClientInterface
                 ''
             );
         } finally {
+            /**
+             * Remove all callback functions manually because they holds references and they are not cleaned
+             * by curl_reset
+             */
+            curl_setopt($this->curlHandler, CURLOPT_HEADERFUNCTION, null);
+            curl_setopt($this->curlHandler, CURLOPT_READFUNCTION, null);
+            curl_setopt($this->curlHandler, CURLOPT_WRITEFUNCTION, null);
+            curl_setopt($this->curlHandler, CURLOPT_PROGRESSFUNCTION, null);
+
             curl_reset($this->curlHandler);
         }
 
