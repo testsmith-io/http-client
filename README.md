@@ -1,3 +1,5 @@
+🛠 This is a fork of socialconnect/http-client to support psr/simple-cache:^3.0.
+
 HTTP-client Component
 =====================
 
