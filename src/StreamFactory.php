@@ -17,28 +17,28 @@ class StreamFactory implements StreamFactoryInterface
      */
     public function createStream(string $content = ''): StreamInterface
     {
-        return \GuzzleHttp\Psr7\stream_for($content);
+        return \GuzzleHttp\Psr7\Utils::streamFor($content);
     }
     /**
      * {@inheritdoc}
      */
-    public function createStreamFromFile(string $file, string $mode = 'r'): StreamInterface
+    public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
     {
         try {
-            $resource = \GuzzleHttp\Psr7\try_fopen($file, $mode);
+            $resource = \GuzzleHttp\Psr7\Utils::try_fopen($filename, $mode);
         } catch (\RuntimeException $e) {
             if ('' === $mode || false === \in_array($mode[0], ['r', 'w', 'a', 'x', 'c'], true)) {
                 throw new \InvalidArgumentException(sprintf('Invalid file opening mode "%s"', $mode), 0, $e);
             }
             throw $e;
         }
-        return \GuzzleHttp\Psr7\stream_for($resource);
+        return \GuzzleHttp\Psr7\Utils::streamFor($resource);
     }
     /**
      * {@inheritdoc}
      */
     public function createStreamFromResource($resource): StreamInterface
     {
-        return \GuzzleHttp\Psr7\stream_for($resource);
+        return \GuzzleHttp\Psr7\Utils::streamFor($resource);
     }
 }

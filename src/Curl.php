@@ -130,7 +130,7 @@ class Curl implements ClientInterface
                 $headersParser->getHeaders(),
                 $result,
                 // CURLINFO_HTTP_VERSION is supported only since 7.3
-                defined('CURLINFO_HTTP_VERSION') ? curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION) : '1.1',
+                defined('CURLINFO_HTTP_VERSION') ? (string)curl_getinfo($this->curlHandler, CURLINFO_HTTP_VERSION) : '1.1',
                 // Should be empty string to auto populate reason inside Guzzle Response
                 ''
             );
@@ -199,7 +199,7 @@ class Curl implements ClientInterface
     }
 
     /**
-     * @param string $option
+     * @param int $option
      * @param mixed $value
      * @return void
      */
