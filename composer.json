@@ -1,5 +1,5 @@
 {
-    "name": "socialconnect/http-client",
+    "name": "testsmith-socialconnect/http-client",
     "description": "PSR-18 HTTP Client on top of Guzzle PSR7",
     "keywords": [
         "http-client",
